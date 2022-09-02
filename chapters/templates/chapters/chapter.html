@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends 'main.html' %}
+{% block content %}
+    <html lang="en">
+        <h1>{{ chapter.name }}</h1>
+        <div>
+            <h3>Pictures</h3>
+            <hr>
+            {% for picture in pictures %}
+                <div>
+                    <span>{{ picture.name }}</span>
+                    <img src="{{ picture.img }}" width="120" alt="">
+                </div>
+            {% endfor %}
+        </div>
+    </html>
+{% endblock %}

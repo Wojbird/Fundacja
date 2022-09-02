@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% extends 'main.html' %}
+{% block content %}
+    <html lang="en">
+        <h1>Home</h1>
+        <div>
+            <a href="{% url 'create-chapter' %}">Create chapter</a>
+            <div>
+            {% for chapter in chapters %}
+                <div>
+                    <h5>
+                        {{ chapter.id }} -- <a href="{% url 'chapter' chapter.id %}">{{ chapter.name }}</a>
+                    </h5>
+                    <h6>
+                        <a href="{% url 'update-chapter' chapter.id %}">Edit</a>
+                        <a href="{% url 'delete-chapter' chapter.id %}">Delete</a>
+                    </h6>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </html>
+{% endblock %}
