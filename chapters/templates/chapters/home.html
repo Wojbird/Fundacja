@@ -6,7 +6,7 @@
         <div>
             <a href="{% url 'create-chapter' %}">Create chapter</a>
             <div>
-            {% for chapter in chapters %}
+                {% for chapter in chapters %}
                 <div>
                     <h5>
                         {{ chapter.id }} -- <a href="{% url 'chapter' chapter.id %}">{{ chapter.name }}</a>
@@ -16,7 +16,7 @@
                         <a href="{% url 'delete-chapter' chapter.id %}">Delete</a>
                     </h6>
                 </div>
-            {% endfor %}
+                {% endfor %}
             </div>
         </div>
     </html>

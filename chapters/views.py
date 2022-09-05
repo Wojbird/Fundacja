@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Chapter
 from .forms import ChapterForm
+from .models import Picture
+from .forms import PictureForm
 
 
 # Create your views here.
@@ -63,3 +65,40 @@ def delete_chapter(request, pk):
         return redirect('home')
 
     return render(request, 'chapters/delete.html', {'obj': chapter})
+
+
+def create_picture(request):
+    form = PictureForm()
+
+    if request.method == 'POST':
+        form = PictureForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('chapter')
+
+    context = {'form': form}
+    return render(request, 'chapters/picture_form.html', context)
+
+
+def update_picture(request, pk):
+    picture = Picture.objects.get(id=pk)
+    form = PictureForm(instance=picture)
+
+    if request.method == 'POST':
+        form = PictureForm(request.POST, instance=picture)
+        if form.is_valid():
+            form.save()
+            return redirect('chapter')
+
+    context = {'form': form}
+    return render(request, 'chapters/picture_form.html', context)
+
+
+def delete_picture(request, pk):
+    picture = Picture.objects.get(id=pk)
+
+    if request.method == 'POST':
+        picture.delete()
+        return redirect('chapter')
+
+    return render(request, 'chapters/delete.html', {'obj': picture})
