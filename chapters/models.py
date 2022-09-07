@@ -17,7 +17,7 @@ class Chapter(models.Model):
 class Picture(models.Model):
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
-    img = models.BinaryField(null=True, blank=True)
+    img = models.TextField()
 
     class Meta:
         ordering = ['name']

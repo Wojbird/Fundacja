@@ -5,13 +5,13 @@
         <h1>{{ chapter.name }}</h1>
         <div>
             <h3>Pictures</h3>
-            <a href="{% url 'create-picture' %}">Create picture</a>
+            <a href="{% url 'create-picture' chapter.id %}">Create picture</a>
             <div>
                 {% for picture in pictures %}
                 <div>
                     <h5>
                         <span>{{ picture.name }}</span>
-                        <img src="{{ picture.img }}" width="120" alt="">
+{#                        <img src="{{ picture.img }}" width="120" alt="">#}
                     </h5>
                     <h6>
                         <a href="{% url 'update-picture' picture.id %}">Edit</a>
