@@ -25,9 +25,11 @@ def home(request):
 
 def chapter(request, pk):
     chapter = Chapter.objects.get(id=pk)
-    picture = chapter.picture_set.all()
+    pictures = Picture.objects.all().filter(chapter=chapter)
+    for p in pictures:
+        print(p.name)
 
-    context = {'chapter': chapter, 'picture': picture}
+    context = {'chapter': chapter, 'pictures': pictures}
     return render(request, 'chapters/chapter.html', context)
 
 
@@ -76,12 +78,13 @@ def create_picture(request, chapter_pk):
     if request.method == 'POST':
         name = request.POST["name"]
         image = request.FILES["image"]
-        encodedBytes = base64.b64encode(image.encode("utf-8"))
+        # data = image.read()
+        encodedBytes = base64.b64encode(image.read())
         img = str(encodedBytes, "utf-8")
 
         picture = Picture(chapter=chapter, name=name, img=img)
         picture.save()
-        return redirect('chapter')
+        return redirect('chapter', chapter_pk)
 
     context = {'chapter': chapter, 'name': name, 'img': img}
     return render(request, 'chapters/picture_form.html', context)
@@ -94,7 +97,7 @@ def update_picture(request, pk):
 
     if request.method == 'POST':
         name = request.POST["name"]
-        image = request.FILES["image"]
+        image = request.FILES.get("image")
         encodedBytes = base64.b64encode(image.encode("utf-8"))
         img = str(encodedBytes, "utf-8")
 
